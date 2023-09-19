@@ -54,12 +54,11 @@ class HotelTopView: UIView {
         return label
     }()
     
-    // TODO: is a button, no action
     private var addressButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = Theme.addressFont
-        button.titleLabel?.textColor = Theme.addressLabelColor
+        button.titleLabel?.textColor = Theme.textButtonColor
         button.titleLabel?.textAlignment = .left
         button.titleEdgeInsets = UIEdgeInsets(top: 0, left: -24, bottom: 0, right: 0)
 

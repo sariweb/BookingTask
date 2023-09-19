@@ -44,6 +44,7 @@ class HotelViewController: UIViewController {
         contentView.addSubview(bottomView)
         scrollView.addSubview(contentView)
         view.addSubview(scrollView)
+        bottomView.buttonTitle = "К выбору номера"
     }
     
     private func addConstraints() {

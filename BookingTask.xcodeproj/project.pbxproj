@@ -31,6 +31,12 @@
 		8576EDD32AB71F0700312268 /* HotelViewControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8576EDD22AB71F0700312268 /* HotelViewControllerViewModel.swift */; };
 		8576EDD52AB7240C00312268 /* HotelTopViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8576EDD42AB7240C00312268 /* HotelTopViewViewModel.swift */; };
 		8576EDD72AB8136F00312268 /* OptionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8576EDD62AB8136F00312268 /* OptionsTableViewCell.swift */; };
+		8576EDD92AB8834900312268 /* RoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8576EDD82AB8834900312268 /* RoomViewController.swift */; };
+		8576EDDB2AB8837C00312268 /* RoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8576EDDA2AB8837C00312268 /* RoomView.swift */; };
+		8576EDDD2AB8839100312268 /* RoomViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8576EDDC2AB8839100312268 /* RoomViewViewModel.swift */; };
+		8576EDDF2AB885F800312268 /* RoomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8576EDDE2AB885F800312268 /* RoomTableViewCell.swift */; };
+		8576EDE12AB94C7600312268 /* BookingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8576EDE02AB94C7600312268 /* BookingViewController.swift */; };
+		8576EDE32AB94CA500312268 /* BookingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8576EDE22AB94CA500312268 /* BookingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +66,12 @@
 		8576EDD22AB71F0700312268 /* HotelViewControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelViewControllerViewModel.swift; sourceTree = "<group>"; };
 		8576EDD42AB7240C00312268 /* HotelTopViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelTopViewViewModel.swift; sourceTree = "<group>"; };
 		8576EDD62AB8136F00312268 /* OptionsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionsTableViewCell.swift; sourceTree = "<group>"; };
+		8576EDD82AB8834900312268 /* RoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomViewController.swift; sourceTree = "<group>"; };
+		8576EDDA2AB8837C00312268 /* RoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomView.swift; sourceTree = "<group>"; };
+		8576EDDC2AB8839100312268 /* RoomViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomViewViewModel.swift; sourceTree = "<group>"; };
+		8576EDDE2AB885F800312268 /* RoomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomTableViewCell.swift; sourceTree = "<group>"; };
+		8576EDE02AB94C7600312268 /* BookingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingViewController.swift; sourceTree = "<group>"; };
+		8576EDE22AB94CA500312268 /* BookingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +111,8 @@
 				8576EDA82AB40DF400312268 /* ViewModels */,
 				8576EDA32AB4013800312268 /* Views */,
 				853EFADA2AB0025700F5DF86 /* HotelViewController.swift */,
+				8576EDD82AB8834900312268 /* RoomViewController.swift */,
+				8576EDE02AB94C7600312268 /* BookingViewController.swift */,
 				853EFAE42AB0025A00F5DF86 /* Info.plist */,
 				853EFAEA2AB0A54800F5DF86 /* Theme.swift */,
 			);
@@ -109,11 +123,14 @@
 			isa = PBXGroup;
 			children = (
 				8576EDD62AB8136F00312268 /* OptionsTableViewCell.swift */,
+				8576EDDE2AB885F800312268 /* RoomTableViewCell.swift */,
 				8576EDA42AB4015E00312268 /* TagLabelsView.swift */,
 				8576EDC32AB710CF00312268 /* ImageSliderView.swift */,
 				8576EDAB2AB4764300312268 /* HotelTopView.swift */,
 				8576EDAD2AB478F400312268 /* HotelAboutView.swift */,
 				8576EDAF2AB47D3000312268 /* HotelBottomView.swift */,
+				8576EDDA2AB8837C00312268 /* RoomView.swift */,
+				8576EDE22AB94CA500312268 /* BookingView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -125,6 +142,7 @@
 				8576EDD42AB7240C00312268 /* HotelTopViewViewModel.swift */,
 				8576EDB32AB591F200312268 /* HotelAboutViewViewModel.swift */,
 				8576EDD22AB71F0700312268 /* HotelViewControllerViewModel.swift */,
+				8576EDDC2AB8839100312268 /* RoomViewViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -240,22 +258,28 @@
 			buildActionMask = 2147483647;
 			files = (
 				8576EDBE2AB70D7C00312268 /* Hotel.swift in Sources */,
+				8576EDDD2AB8839100312268 /* RoomViewViewModel.swift in Sources */,
 				8576EDC22AB70F5400312268 /* Booking.swift in Sources */,
 				8576EDB02AB47D3000312268 /* HotelBottomView.swift in Sources */,
 				8576EDD12AB71C5300312268 /* APICacheManager.swift in Sources */,
 				8576EDD72AB8136F00312268 /* OptionsTableViewCell.swift in Sources */,
 				8576EDC02AB70E7600312268 /* Room.swift in Sources */,
 				853EFADB2AB0025700F5DF86 /* HotelViewController.swift in Sources */,
+				8576EDDF2AB885F800312268 /* RoomTableViewCell.swift in Sources */,
 				853EFAEB2AB0A54800F5DF86 /* Theme.swift in Sources */,
 				8576EDD52AB7240C00312268 /* HotelTopViewViewModel.swift in Sources */,
+				8576EDDB2AB8837C00312268 /* RoomView.swift in Sources */,
 				8576EDCB2AB71C2F00312268 /* Endpoint.swift in Sources */,
 				8576EDAE2AB478F400312268 /* HotelAboutView.swift in Sources */,
 				8576EDC42AB710CF00312268 /* ImageSliderView.swift in Sources */,
 				8576EDD32AB71F0700312268 /* HotelViewControllerViewModel.swift in Sources */,
+				8576EDE32AB94CA500312268 /* BookingView.swift in Sources */,
 				8576EDD02AB71C5300312268 /* ImageLoader.swift in Sources */,
 				853EFAD72AB0025700F5DF86 /* AppDelegate.swift in Sources */,
 				853EFAD92AB0025700F5DF86 /* SceneDelegate.swift in Sources */,
+				8576EDE12AB94C7600312268 /* BookingViewController.swift in Sources */,
 				8576EDA52AB4015E00312268 /* TagLabelsView.swift in Sources */,
+				8576EDD92AB8834900312268 /* RoomViewController.swift in Sources */,
 				8576EDAA2AB40E0B00312268 /* OptionCellViewModel.swift in Sources */,
 				8576EDB42AB591F200312268 /* HotelAboutViewViewModel.swift in Sources */,
 				8576EDCC2AB71C2F00312268 /* Request.swift in Sources */,

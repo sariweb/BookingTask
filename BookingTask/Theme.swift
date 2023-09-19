@@ -18,13 +18,15 @@ struct Theme {
     
     static let starsViewColor: UIColor = UIColor.init(rgb: 0xFFC700).withAlphaComponent(0.2)
     static let starsLabelColor: UIColor = UIColor.init(rgb: 0xFFA800)
-    static let addressLabelColor: UIColor = UIColor.init(rgb: 0x0D72FF)
+    static let textButtonColor: UIColor = UIColor.init(rgb: 0x0D72FF)
     static let descriptionLabelColor: UIColor = UIColor.init(rgb: 0x828796)
     static let wrapperViewColor: UIColor = UIColor.init(rgb: 0xF6F6F9)
     static let cellBgColor: UIColor = UIColor.init(rgb: 0xFBFBFC)
     static let cellTextColor: UIColor = UIColor.init(rgb: 0x828796)
     static let optionColor: UIColor = UIColor.init(rgb: 0x2C3035)
-    static let buttonColor: UIColor = UIColor.init(rgb: 0x0D72FF) 
+    static let buttonColor: UIColor = UIColor.init(rgb: 0x0D72FF)
+    static let moreButtonColor: UIColor = UIColor.init(rgb: 0x0D72FF).withAlphaComponent(0.1)
+
 }
 
 

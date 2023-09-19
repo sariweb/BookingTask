@@ -90,7 +90,6 @@ class TagLabelsView: UIView {
             if currentOriginX + label.frame.width > bounds.width {
                 currentOriginX = 0
                 currentOriginY += labelIndex > 0 ? tagHeight + tagSpacingY : 0
-                labelIndex += 1
             }
             
             // set the btn frame origin
@@ -99,7 +98,7 @@ class TagLabelsView: UIView {
             
             // increment current X by btn width + spacing
             currentOriginX += label.frame.width + tagSpacingX
-            
+            labelIndex += 1
         }
         
         // update intrinsic height

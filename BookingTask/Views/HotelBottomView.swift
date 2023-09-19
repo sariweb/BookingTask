@@ -8,11 +8,17 @@
 import UIKit
 
 class HotelBottomView: UIView {
-
+    
+    public var buttonTitle: String? {
+        didSet {
+            guard let buttonTitle else { return }
+            button.setTitle(buttonTitle, for: .normal)
+        }
+    }
+    
     private var button: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("К выбору номера", for: .normal)
         button.backgroundColor = Theme.buttonColor
         button.layer.cornerRadius = 15
         
