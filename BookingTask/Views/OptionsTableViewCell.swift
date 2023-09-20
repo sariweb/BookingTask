@@ -31,7 +31,7 @@ class OptionsTableViewCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = Theme.addressFont
-        label.textColor = Theme.descriptionLabelColor //background: #FFA800;
+        label.textColor = Theme.descriptionColor
         
         return label
     }()

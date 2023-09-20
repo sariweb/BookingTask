@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HotelBottomView: UIView {
+class BottomButtonView: UIView {
     
     public var buttonTitle: String? {
         didSet {

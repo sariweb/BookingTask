@@ -33,7 +33,7 @@ class HotelAboutView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
-        label.font = Theme.priceDescFont
+        label.font = Theme.descriptionFont
         label.textColor = .label
         
         return label

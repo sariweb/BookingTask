@@ -87,8 +87,8 @@ class HotelTopView: UIView {
     private var priceDescLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = Theme.priceDescFont
-        label.textColor = Theme.descriptionLabelColor
+        label.font = Theme.descriptionFont
+        label.textColor = Theme.descriptionColor
         
         return label
     }()

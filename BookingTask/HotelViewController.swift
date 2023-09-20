@@ -10,7 +10,7 @@ import UIKit
 class HotelViewController: UIViewController {
     private let topView = HotelTopView()
     private var aboutView = HotelAboutView()
-    private var bottomView = HotelBottomView()
+    private var bottomView = BottomButtonView()
     
     private let viewModel = HotelViewControllerViewModel()
     

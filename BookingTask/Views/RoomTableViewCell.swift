@@ -35,7 +35,7 @@ class RoomTableViewCell: UITableViewCell {
     private let moreButtonView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = Theme.moreButtonColor
+        view.backgroundColor = Theme.buttonBgColor
         view.layer.cornerRadius = 5
         
         return view
@@ -47,7 +47,12 @@ class RoomTableViewCell: UITableViewCell {
         button.titleLabel?.font = Theme.starsFont
         button.titleLabel?.textColor = Theme.textButtonColor
         button.setTitle("Подробнее о номере", for: .normal)
-        button.setImage(UIImage(systemName: "chevron.right"), for: .normal)
+
+        let configuration = UIImage.SymbolConfiguration(font: Theme.smallButtonFont)
+        let image = UIImage(systemName: "chevron.right", withConfiguration: configuration)
+        button.setImage(image, for: .normal)
+        button.tintColor = Theme.textButtonColor
+        
         button.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
         button.titleLabel?.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
         button.imageView?.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
@@ -68,8 +73,8 @@ class RoomTableViewCell: UITableViewCell {
     private var priceDescLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = Theme.priceDescFont
-        label.textColor = Theme.descriptionLabelColor
+        label.font = Theme.descriptionFont
+        label.textColor = Theme.descriptionColor
         
         return label
     }()
@@ -82,8 +87,8 @@ class RoomTableViewCell: UITableViewCell {
         return view
     }()
     
-    private var bottomView: HotelBottomView = {
-        let view = HotelBottomView()
+    private var bottomView: BottomButtonView = {
+        let view = BottomButtonView()
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
