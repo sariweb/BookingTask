@@ -7,7 +7,9 @@
 
 import UIKit
 
-class HotelViewController: UIViewController {
+class HotelViewController: UIViewController, Coordinating {
+    var coordinator: Coordinator?
+    
     private let topView = HotelTopView()
     private var aboutView = HotelAboutView()
     private var bottomView = BottomButtonView()
@@ -42,6 +44,7 @@ class HotelViewController: UIViewController {
         contentView.addSubview(topView)
         contentView.addSubview(aboutView)
         contentView.addSubview(bottomView)
+        bottomView.delegate = self
         scrollView.addSubview(contentView)
         view.addSubview(scrollView)
         bottomView.buttonTitle = "К выбору номера"
@@ -100,5 +103,11 @@ extension HotelViewController: HotelViewControllerViewModelDelegate {
         )
         
         aboutView.configure(with: hotelData.aboutTheHotel)
+    }
+}
+
+extension HotelViewController: BottomButtonViewDelegate {
+    func didTapButton() {
+        coordinator?.eventOccured(with: .room, title: viewModel.hotelData?.name)
     }
 }

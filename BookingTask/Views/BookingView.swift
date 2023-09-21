@@ -7,8 +7,14 @@
 
 import UIKit
 
+protocol BookingViewDelegate: AnyObject {
+    func didTapButton()
+}
+
 class BookingView: UIView {
     private let viewModel = BookingViewViewModel()
+    
+    weak var delegate: BookingViewDelegate?
     
     static let viewCornerRadius: CGFloat = 12
     
@@ -645,6 +651,8 @@ class BookingView: UIView {
         contentView.addSubview(priceView)
         contentView.addSubview(bottomView)
         
+        bottomView.delegate = self
+        
         addSubview(contentView)
         
         viewModel.delegate = self
@@ -904,5 +912,11 @@ extension BookingView: BookingViewViewModelDelegate {
         paymentDataLabel.text = "\(paymentSum) ₽"
         
         bottomView.buttonTitle = "Оплатить \(paymentSum) ₽"
+    }
+}
+
+extension BookingView: BottomButtonViewDelegate {
+    func didTapButton() {
+        delegate?.didTapButton()
     }
 }

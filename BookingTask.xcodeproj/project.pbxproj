@@ -39,6 +39,9 @@
 		8576EDE32AB94CA500312268 /* BookingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8576EDE22AB94CA500312268 /* BookingView.swift */; };
 		8576EDE52AB94E9D00312268 /* BookingViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8576EDE42AB94E9D00312268 /* BookingViewViewModel.swift */; };
 		8576EDE72ABAABF200312268 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8576EDE62ABAABF200312268 /* Extensions.swift */; };
+		8576EDEA2ABBE8ED00312268 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8576EDE92ABBE8ED00312268 /* Coordinator.swift */; };
+		8576EDEC2ABBEA6D00312268 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8576EDEB2ABBEA6D00312268 /* MainCoordinator.swift */; };
+		8576EDEE2ABBFF6A00312268 /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8576EDED2ABBFF6A00312268 /* ResultViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -76,6 +79,9 @@
 		8576EDE22AB94CA500312268 /* BookingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingView.swift; sourceTree = "<group>"; };
 		8576EDE42AB94E9D00312268 /* BookingViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingViewViewModel.swift; sourceTree = "<group>"; };
 		8576EDE62ABAABF200312268 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		8576EDE92ABBE8ED00312268 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		8576EDEB2ABBEA6D00312268 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
+		8576EDED2ABBFF6A00312268 /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +114,7 @@
 		853EFAD52AB0025700F5DF86 /* BookingTask */ = {
 			isa = PBXGroup;
 			children = (
+				8576EDE82ABBE8D500312268 /* Coordinator */,
 				8576EDC52AB71C0B00312268 /* Resources */,
 				8576EDCD2AB71C5300312268 /* Managers */,
 				8576EDC62AB71C2F00312268 /* APIClient */,
@@ -117,6 +124,7 @@
 				853EFADA2AB0025700F5DF86 /* HotelViewController.swift */,
 				8576EDD82AB8834900312268 /* RoomViewController.swift */,
 				8576EDE02AB94C7600312268 /* BookingViewController.swift */,
+				8576EDED2ABBFF6A00312268 /* ResultViewController.swift */,
 				853EFAE42AB0025A00F5DF86 /* Info.plist */,
 				853EFAEA2AB0A54800F5DF86 /* Theme.swift */,
 				8576EDE62ABAABF200312268 /* Extensions.swift */,
@@ -191,6 +199,15 @@
 				8576EDCF2AB71C5300312268 /* APICacheManager.swift */,
 			);
 			path = Managers;
+			sourceTree = "<group>";
+		};
+		8576EDE82ABBE8D500312268 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				8576EDE92ABBE8ED00312268 /* Coordinator.swift */,
+				8576EDEB2ABBEA6D00312268 /* MainCoordinator.swift */,
+			);
+			path = Coordinator;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -287,12 +304,15 @@
 				8576EDE12AB94C7600312268 /* BookingViewController.swift in Sources */,
 				8576EDA52AB4015E00312268 /* TagLabelsView.swift in Sources */,
 				8576EDD92AB8834900312268 /* RoomViewController.swift in Sources */,
+				8576EDEA2ABBE8ED00312268 /* Coordinator.swift in Sources */,
+				8576EDEC2ABBEA6D00312268 /* MainCoordinator.swift in Sources */,
 				8576EDAA2AB40E0B00312268 /* OptionCellViewModel.swift in Sources */,
 				8576EDE72ABAABF200312268 /* Extensions.swift in Sources */,
 				8576EDB42AB591F200312268 /* HotelAboutViewViewModel.swift in Sources */,
 				8576EDCC2AB71C2F00312268 /* Request.swift in Sources */,
 				8576EDCA2AB71C2F00312268 /* NetworkService.swift in Sources */,
 				8576EDAC2AB4764300312268 /* HotelTopView.swift in Sources */,
+				8576EDEE2ABBFF6A00312268 /* ResultViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,6 +9,7 @@ import UIKit
 
 protocol RoomViewViewModelDelegate: AnyObject {
     func didLoadRoomData()
+    func didTapButton(with id: Int)
 }
 
 final class RoomViewViewModel: NSObject {
@@ -45,6 +46,7 @@ extension RoomViewViewModel: UITableViewDataSource, UITableViewDelegate {
         
         let room = rooms[indexPath.row]
         cell.configure(room: room)
+        cell.delegate = self
 
         return cell
     }
@@ -55,5 +57,11 @@ extension RoomViewViewModel: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 600
+    }
+}
+
+extension RoomViewViewModel: RoomTableViewCellDelegate {
+    func didTapButton(with id: Int) {
+        delegate?.didTapButton(with: id)
     }
 }

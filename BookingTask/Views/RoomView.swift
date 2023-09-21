@@ -7,9 +7,14 @@
 
 import UIKit
 
+protocol RoomViewDelegate: AnyObject {
+    func didTapButton(with id: Int)
+}
+
 class RoomView: UIView {
-    
     private let viewModel = RoomViewViewModel()
+    
+    weak var delegate: RoomViewDelegate?
     
     private let tableView: UITableView = {
         let view = UITableView()
@@ -60,6 +65,10 @@ class RoomView: UIView {
 }
 
 extension RoomView: RoomViewViewModelDelegate {
+    func didTapButton(with id: Int) {
+        delegate?.didTapButton(with: id)
+    }
+    
     func didLoadRoomData() {
         tableView.reloadData()
     }

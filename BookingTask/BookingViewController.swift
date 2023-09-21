@@ -7,7 +7,8 @@
 
 import UIKit
 
-class BookingViewController: UIViewController {
+class BookingViewController: UIViewController, Coordinating {
+    var coordinator: Coordinator?
 
     private let bookingView = BookingView()
     
@@ -24,11 +25,15 @@ class BookingViewController: UIViewController {
         view.addSubview(scrollView)
         view.backgroundColor = .white
         
+        bookingView.delegate = self
+        
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        
         addConstraints()
     }
     
     private func addConstraints() {
-        let heightConstraint = bookingView.heightAnchor.constraint(equalToConstant: 1500)
+        let heightConstraint = bookingView.heightAnchor.constraint(equalToConstant: 1550)
             heightConstraint.priority = UILayoutPriority(250)
         
         NSLayoutConstraint.activate([
@@ -44,5 +49,11 @@ class BookingViewController: UIViewController {
             scrollView.bottomAnchor.constraint(greaterThanOrEqualTo: view.bottomAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
         ])
+    }
+}
+
+extension BookingViewController: BookingViewDelegate {
+    func didTapButton() {
+        coordinator?.eventOccured(with: .result, title: "Заказ оплачен")
     }
 }

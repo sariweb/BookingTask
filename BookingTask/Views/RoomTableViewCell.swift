@@ -7,8 +7,16 @@
 
 import UIKit
 
+protocol RoomTableViewCellDelegate: AnyObject {
+    func didTapButton(with id: Int)
+}
+
 class RoomTableViewCell: UITableViewCell {
     static let identifier = "RoomTableViewCell"
+    
+    weak var delegate: RoomTableViewCellDelegate?
+    
+    private var id: Int?
     
     private var imageSliderView: ImageSliderView = {
         let view = ImageSliderView()
@@ -117,7 +125,7 @@ class RoomTableViewCell: UITableViewCell {
         wrapperView.addSubview(moreButtonView)
         wrapperView.addSubview(priceView)
         wrapperView.addSubview(bottomView)
-        
+        bottomView.delegate = self
         bottomView.buttonTitle = "Выбрать номер"
         
         contentView.addSubview(wrapperView)
@@ -192,5 +200,13 @@ class RoomTableViewCell: UITableViewCell {
         featuresView.tagNames = room.peculiarities
         priceLabel.text = "от \(room.price) ₽"
         priceDescLabel.text = room.pricePer
+        id = room.id
+    }
+}
+
+extension RoomTableViewCell: BottomButtonViewDelegate {
+    func didTapButton() {
+        guard let id else { return }
+        delegate?.didTapButton(with: id)
     }
 }

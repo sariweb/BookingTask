@@ -7,7 +7,12 @@
 
 import UIKit
 
+protocol BottomButtonViewDelegate: AnyObject {
+    func didTapButton()
+}
+
 class BottomButtonView: UIView {
+    weak var delegate: BottomButtonViewDelegate?
     
     public var buttonTitle: String? {
         didSet {
@@ -21,9 +26,15 @@ class BottomButtonView: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = Theme.buttonColor
         button.layer.cornerRadius = 15
-        
+        button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
+    
         return button
     }()
+    
+    @objc
+    func didTapButton() {
+        delegate?.didTapButton()
+    }
     
     // MARK: - Init
     
