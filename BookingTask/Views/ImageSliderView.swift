@@ -13,10 +13,13 @@ class ImageSliderView: UIView {
         didSet {
             guard let imageUrls else { return }
             
+            if let view = views.removeLast() {
+                stackView.removeArrangedSubview(view)
+            }
             for imageUrl in imageUrls {
                 views.append(makeImageView(imageUrl))
             }
-        
+            pageControl.numberOfPages = views.count
             setupViewsConstrains()
         }
     }
@@ -44,10 +47,8 @@ class ImageSliderView: UIView {
     var pageControl: UIPageControl = {
         let control = UIPageControl()
         control.translatesAutoresizingMaskIntoConstraints = false
-        control.backgroundColor = .blue
         control.currentPageIndicatorTintColor = .black
         control.backgroundStyle = .prominent
-        
         control.layer.cornerRadius = 5
         
         return control
@@ -62,6 +63,8 @@ class ImageSliderView: UIView {
         layer.cornerRadius = 16
         
         setup()
+        views.append(UIImageView(image: UIImage(named: "placeholder")))
+        setupViewsConstrains()
         
         addConstraints()
     }
@@ -127,7 +130,6 @@ class ImageSliderView: UIView {
     
     private func addConstraints() {
         let padding: CGFloat = 10
-        
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: -padding),
@@ -143,7 +145,6 @@ class ImageSliderView: UIView {
             pageControl.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
         ])
     }
-
 }
 
 extension ImageSliderView: UIScrollViewDelegate {
