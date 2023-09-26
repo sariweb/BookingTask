@@ -39,7 +39,7 @@ class BottomButtonView: UIView {
     // MARK: - Init
     
     override init(frame: CGRect) {
-        super.init(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
+        super.init(frame: frame)
         
         translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = .systemBackground
@@ -57,7 +57,7 @@ class BottomButtonView: UIView {
         NSLayoutConstraint.activate([
             button.topAnchor.constraint(equalTo: topAnchor, constant: 12),
             button.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Theme.margin),
-            button.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Theme.margin),
+            button.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12),
             button.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Theme.margin),
             button.heightAnchor.constraint(equalToConstant: 48),
         ])

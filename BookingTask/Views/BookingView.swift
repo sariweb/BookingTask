@@ -19,7 +19,7 @@ class BookingView: UIView {
     static let viewCornerRadius: CGFloat = 12
     
     private var paymentSum = 0
-
+        
     private var contentView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -575,7 +575,9 @@ class BookingView: UIView {
         return view
     }()
     
-    
+    private let phoneMask = "+7 (***) ***-**-**"
+    private var inputPhoneText = ""
+    private var inputEmailText = ""
 
     // MARK: - Init
     
@@ -612,6 +614,10 @@ class BookingView: UIView {
         customerView.addSubview(phoneTextField)
         customerView.addSubview(emailTextField)
         customerView.addSubview(customerDescLabel)
+        
+        phoneTextField.delegate = self
+        phoneTextField.keyboardType = .numberPad
+        emailTextField.delegate = self
 
         firstTouristStackView.addArrangedSubview(nameTextField)
         firstTouristStackView.addArrangedSubview(surnameTextField)
@@ -659,6 +665,9 @@ class BookingView: UIView {
         viewModel.fetchBookingData()
 
         addConstraints()
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        addGestureRecognizer(tapGesture)
     }
     
     required init?(coder: NSCoder) {
@@ -889,11 +898,32 @@ class BookingView: UIView {
             contentView.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
     }
+    
+    @objc private func hideKeyboard() {
+        endEditing(true)
+    }
+    
+    private func setPosition(for textField: UITextField, offset: Int) {
+        DispatchQueue.main.async {
+            if let newPosition = textField.position(from: textField.beginningOfDocument, offset: offset) {
+                
+                textField.selectedTextRange = textField.textRange(from: newPosition, to: newPosition)
+            }
+        }
+    }
+    
+    private func showErrorInTextField(_ textField: UITextField) {
+        textField.layer.backgroundColor = Theme.errorTextFieldColor.cgColor
+    }
+    
+    private func resetTextField(_ textField: UITextField) {
+        textField.layer.backgroundColor = Theme.wrapperViewColor.cgColor
+    }
 }
 
 extension BookingView: BookingViewViewModelDelegate {
     func didLoadBookingData() {
-        guard let bookingData = viewModel.bookingData else { return }
+        guard let bookingData = viewModel.bookingLoadedData else { return }
         
         starsLabel.text = "★ \(bookingData.horating) \(bookingData.ratingName)"
         titleLabel.text = bookingData.hotelName
@@ -917,6 +947,118 @@ extension BookingView: BookingViewViewModelDelegate {
 
 extension BookingView: BottomButtonViewDelegate {
     func didTapButton() {
-        delegate?.didTapButton()
+        if inputPhoneText.count != 10 {
+            print("Incorrect Phone: \(inputPhoneText)")
+            phoneTextField.becomeFirstResponder()
+        } else if !inputEmailText.isEmail {
+            print("Incorrect Email: \(inputEmailText)")
+            emailTextField.becomeFirstResponder()
+        } else {
+            delegate?.didTapButton()
+            
+            print("Phone: \(inputPhoneText)")
+            print("Email: \(inputEmailText)")
+        }
     }
 }
+
+
+extension BookingView: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange,    replacementString string:  String) -> Bool {
+        // MARK: - If Delete button click
+        let char = string.cString(using: String.Encoding.utf8)!
+        let isBackSpace = strcmp(char, "\\b")
+        
+        if textField == phoneTextField {
+            var result = Array(phoneMask)
+
+            if isBackSpace == -92 {
+                if inputPhoneText.count > 0 {
+                    inputPhoneText.removeLast()
+                }
+            } else {
+                if inputPhoneText.count == 0, string != "9" {
+                    return false
+                }
+                if inputPhoneText.count < 10 {
+                    inputPhoneText += string
+                }
+            }
+            
+            var offset = 4
+            
+            for digit in inputPhoneText {
+                if let index = result.firstIndex(of: "*") {
+                    result[index] = digit
+                    offset = Int(index)
+                }
+            }
+
+            textField.text = result.map { String($0) }.joined()
+            if inputPhoneText.count > 0 {
+                offset += 1
+            }
+            setPosition(for: textField, offset: offset)
+        } else if textField == emailTextField {
+            if isBackSpace == -92 {
+                if inputEmailText.count > 0 {
+                    inputEmailText.removeLast()
+                }
+            } else {
+                inputEmailText += string
+            }
+            
+            textField.text = inputEmailText
+        }
+        
+        return false
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == phoneTextField {
+            resetTextField(textField)
+            var offset = 4
+            if let text = phoneTextField.text {
+                if text == "" {
+                    textField.text = phoneMask
+                } else {
+                    if let index = Array(text).firstIndex(of: "*") {
+                        offset = Int(index)
+                    } else {
+                        offset = text.count
+                    }
+                }
+                setPosition(for: textField, offset: offset)
+            }
+        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if let text = textField.text {
+            if textField == phoneTextField {
+                if text.firstIndex(of: "*") == nil {
+                    resetTextField(textField)
+                } else {
+                    showErrorInTextField(textField)
+                }
+            } else if textField == emailTextField {
+                if text.isBlank || !text.isEmail {
+                    showErrorInTextField(textField)
+                } else {
+                    resetTextField(textField)
+                }
+            }
+        }
+        
+        textField.resignFirstResponder()
+    }
+    
+    // For pressing return on the keyboard to dismiss keyboard
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        for textField in self.subviews where textField is UITextField {
+            textField.resignFirstResponder()
+        }
+        return true
+    }
+}
+

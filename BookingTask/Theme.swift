@@ -29,4 +29,5 @@ struct Theme {
     static let optionColor: UIColor = UIColor.init(rgb: 0x2C3035)
     static let buttonColor: UIColor = UIColor.init(rgb: 0x0D72FF)
     static let buttonBgColor: UIColor = UIColor.init(rgb: 0x0D72FF).withAlphaComponent(0.1)
+    static let errorTextFieldColor: UIColor = UIColor.init(rgb: 0xEB5757).withAlphaComponent(0.15)
 }

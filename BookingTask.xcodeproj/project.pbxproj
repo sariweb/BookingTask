@@ -13,6 +13,7 @@
 		853EFAE02AB0025A00F5DF86 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 853EFADF2AB0025A00F5DF86 /* Assets.xcassets */; };
 		853EFAE32AB0025A00F5DF86 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 853EFAE12AB0025A00F5DF86 /* LaunchScreen.storyboard */; };
 		853EFAEB2AB0A54800F5DF86 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853EFAEA2AB0A54800F5DF86 /* Theme.swift */; };
+		85609E382ABFEC8E00071418 /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85609E372ABFEC8E00071418 /* Customer.swift */; };
 		8576EDA52AB4015E00312268 /* TagLabelsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8576EDA42AB4015E00312268 /* TagLabelsView.swift */; };
 		8576EDAA2AB40E0B00312268 /* OptionCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8576EDA92AB40E0B00312268 /* OptionCellViewModel.swift */; };
 		8576EDAC2AB4764300312268 /* HotelTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8576EDAB2AB4764300312268 /* HotelTopView.swift */; };
@@ -53,6 +54,7 @@
 		853EFAE22AB0025A00F5DF86 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		853EFAE42AB0025A00F5DF86 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		853EFAEA2AB0A54800F5DF86 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		85609E372ABFEC8E00071418 /* Customer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
 		8576EDA42AB4015E00312268 /* TagLabelsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagLabelsView.swift; sourceTree = "<group>"; };
 		8576EDA92AB40E0B00312268 /* OptionCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionCellViewModel.swift; sourceTree = "<group>"; };
 		8576EDAB2AB4764300312268 /* HotelTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelTopView.swift; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 				8576EDBD2AB70D7C00312268 /* Hotel.swift */,
 				8576EDBF2AB70E7600312268 /* Room.swift */,
 				8576EDC12AB70F5400312268 /* Booking.swift */,
+				85609E372ABFEC8E00071418 /* Customer.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -291,6 +294,7 @@
 				853EFADB2AB0025700F5DF86 /* HotelViewController.swift in Sources */,
 				8576EDDF2AB885F800312268 /* RoomTableViewCell.swift in Sources */,
 				853EFAEB2AB0A54800F5DF86 /* Theme.swift in Sources */,
+				85609E382ABFEC8E00071418 /* Customer.swift in Sources */,
 				8576EDD52AB7240C00312268 /* HotelTopViewViewModel.swift in Sources */,
 				8576EDDB2AB8837C00312268 /* RoomView.swift in Sources */,
 				8576EDCB2AB71C2F00312268 /* Endpoint.swift in Sources */,

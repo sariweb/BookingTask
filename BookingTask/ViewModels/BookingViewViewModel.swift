@@ -14,7 +14,7 @@ protocol BookingViewViewModelDelegate: AnyObject {
 final class BookingViewViewModel: NSObject {
     weak var delegate: BookingViewViewModelDelegate?
     
-    public var bookingData: Booking?
+    private(set) var bookingLoadedData: Booking?
     
     func fetchBookingData() {
         NetworkService.shared.execute(
@@ -23,7 +23,7 @@ final class BookingViewViewModel: NSObject {
         ) { [weak self] result in
             switch result {
                 case .success(let bookingData):
-                    self?.bookingData = bookingData
+                    self?.bookingLoadedData = bookingData
                     
                     DispatchQueue.main.async {
                         self?.delegate?.didLoadBookingData()
