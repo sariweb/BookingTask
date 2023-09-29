@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		851C5CF52AC674300081925C /* BookingTouristView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851C5CF42AC674300081925C /* BookingTouristView.swift */; };
+		851C5CF72AC675250081925C /* BookingTouristViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851C5CF62AC675250081925C /* BookingTouristViewViewModel.swift */; };
 		853EFAD72AB0025700F5DF86 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853EFAD62AB0025700F5DF86 /* AppDelegate.swift */; };
 		853EFAD92AB0025700F5DF86 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853EFAD82AB0025700F5DF86 /* SceneDelegate.swift */; };
 		853EFADB2AB0025700F5DF86 /* HotelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853EFADA2AB0025700F5DF86 /* HotelViewController.swift */; };
@@ -46,6 +48,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		851C5CF42AC674300081925C /* BookingTouristView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingTouristView.swift; sourceTree = "<group>"; };
+		851C5CF62AC675250081925C /* BookingTouristViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingTouristViewViewModel.swift; sourceTree = "<group>"; };
 		853EFAD32AB0025700F5DF86 /* BookingTask.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BookingTask.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		853EFAD62AB0025700F5DF86 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		853EFAD82AB0025700F5DF86 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -97,6 +101,72 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		851C5CF02AC6737D0081925C /* Hotel */ = {
+			isa = PBXGroup;
+			children = (
+				8576EDD62AB8136F00312268 /* OptionsTableViewCell.swift */,
+				8576EDAB2AB4764300312268 /* HotelTopView.swift */,
+				8576EDAD2AB478F400312268 /* HotelAboutView.swift */,
+			);
+			path = Hotel;
+			sourceTree = "<group>";
+		};
+		851C5CF12AC673A20081925C /* Room */ = {
+			isa = PBXGroup;
+			children = (
+				8576EDDE2AB885F800312268 /* RoomTableViewCell.swift */,
+				8576EDDA2AB8837C00312268 /* RoomView.swift */,
+			);
+			path = Room;
+			sourceTree = "<group>";
+		};
+		851C5CF22AC673B30081925C /* Booking */ = {
+			isa = PBXGroup;
+			children = (
+				8576EDE22AB94CA500312268 /* BookingView.swift */,
+				851C5CF42AC674300081925C /* BookingTouristView.swift */,
+			);
+			path = Booking;
+			sourceTree = "<group>";
+		};
+		851C5CF32AC673CB0081925C /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				8576EDA42AB4015E00312268 /* TagLabelsView.swift */,
+				8576EDC32AB710CF00312268 /* ImageSliderView.swift */,
+				8576EDAF2AB47D3000312268 /* BottomButtonView.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		851C5CF82AC688430081925C /* Booking */ = {
+			isa = PBXGroup;
+			children = (
+				8576EDE42AB94E9D00312268 /* BookingViewViewModel.swift */,
+				851C5CF62AC675250081925C /* BookingTouristViewViewModel.swift */,
+			);
+			path = Booking;
+			sourceTree = "<group>";
+		};
+		851C5CF92AC688510081925C /* Room */ = {
+			isa = PBXGroup;
+			children = (
+				8576EDDC2AB8839100312268 /* RoomViewViewModel.swift */,
+			);
+			path = Room;
+			sourceTree = "<group>";
+		};
+		851C5CFA2AC6885A0081925C /* Hotel */ = {
+			isa = PBXGroup;
+			children = (
+				8576EDA92AB40E0B00312268 /* OptionCellViewModel.swift */,
+				8576EDD42AB7240C00312268 /* HotelTopViewViewModel.swift */,
+				8576EDB32AB591F200312268 /* HotelAboutViewViewModel.swift */,
+				8576EDD22AB71F0700312268 /* HotelViewControllerViewModel.swift */,
+			);
+			path = Hotel;
+			sourceTree = "<group>";
+		};
 		853EFACA2AB0025700F5DF86 = {
 			isa = PBXGroup;
 			children = (
@@ -137,15 +207,10 @@
 		8576EDA32AB4013800312268 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				8576EDD62AB8136F00312268 /* OptionsTableViewCell.swift */,
-				8576EDDE2AB885F800312268 /* RoomTableViewCell.swift */,
-				8576EDA42AB4015E00312268 /* TagLabelsView.swift */,
-				8576EDC32AB710CF00312268 /* ImageSliderView.swift */,
-				8576EDAB2AB4764300312268 /* HotelTopView.swift */,
-				8576EDAD2AB478F400312268 /* HotelAboutView.swift */,
-				8576EDAF2AB47D3000312268 /* BottomButtonView.swift */,
-				8576EDDA2AB8837C00312268 /* RoomView.swift */,
-				8576EDE22AB94CA500312268 /* BookingView.swift */,
+				851C5CF32AC673CB0081925C /* Common */,
+				851C5CF02AC6737D0081925C /* Hotel */,
+				851C5CF12AC673A20081925C /* Room */,
+				851C5CF22AC673B30081925C /* Booking */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -153,12 +218,9 @@
 		8576EDA82AB40DF400312268 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				8576EDA92AB40E0B00312268 /* OptionCellViewModel.swift */,
-				8576EDD42AB7240C00312268 /* HotelTopViewViewModel.swift */,
-				8576EDB32AB591F200312268 /* HotelAboutViewViewModel.swift */,
-				8576EDD22AB71F0700312268 /* HotelViewControllerViewModel.swift */,
-				8576EDDC2AB8839100312268 /* RoomViewViewModel.swift */,
-				8576EDE42AB94E9D00312268 /* BookingViewViewModel.swift */,
+				851C5CFA2AC6885A0081925C /* Hotel */,
+				851C5CF92AC688510081925C /* Room */,
+				851C5CF82AC688430081925C /* Booking */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -293,6 +355,7 @@
 				8576EDC02AB70E7600312268 /* Room.swift in Sources */,
 				853EFADB2AB0025700F5DF86 /* HotelViewController.swift in Sources */,
 				8576EDDF2AB885F800312268 /* RoomTableViewCell.swift in Sources */,
+				851C5CF52AC674300081925C /* BookingTouristView.swift in Sources */,
 				853EFAEB2AB0A54800F5DF86 /* Theme.swift in Sources */,
 				85609E382ABFEC8E00071418 /* Customer.swift in Sources */,
 				8576EDD52AB7240C00312268 /* HotelTopViewViewModel.swift in Sources */,
@@ -304,6 +367,7 @@
 				8576EDE32AB94CA500312268 /* BookingView.swift in Sources */,
 				8576EDD02AB71C5300312268 /* ImageLoader.swift in Sources */,
 				853EFAD72AB0025700F5DF86 /* AppDelegate.swift in Sources */,
+				851C5CF72AC675250081925C /* BookingTouristViewViewModel.swift in Sources */,
 				853EFAD92AB0025700F5DF86 /* SceneDelegate.swift in Sources */,
 				8576EDE12AB94C7600312268 /* BookingViewController.swift in Sources */,
 				8576EDA52AB4015E00312268 /* TagLabelsView.swift in Sources */,

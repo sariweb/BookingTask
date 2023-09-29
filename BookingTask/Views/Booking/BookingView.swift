@@ -287,115 +287,10 @@ class BookingView: UIView {
     }()
     
     // MARK: - First Tourist view
-    
-    private var firstTouristInfoLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = Theme.titleFont
-        label.textColor = .label
-        label.text = "Первый турист"
-        
-        return label
-    }()
-    
-    private var firstTouristCollapseButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(systemName: "chevron.up"), for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = Theme.buttonBgColor
-        button.titleLabel?.textColor = Theme.textButtonColor
-        button.layer.cornerRadius = 6
-        
-        return button
-    }()
-    
-    private var firstTouristTitleView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        
-        return view
-    }()
 
-    private var nameTextField: UITextField = {
-        let textField = UITextField()
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = "Имя"
-        textField.backgroundColor = Theme.wrapperViewColor
-        textField.layer.cornerRadius = 10
-        textField.paddingLeft(inset: Theme.margin)
-        
-        return textField
-    }()
-    
-    private var surnameTextField: UITextField = {
-        let textField = UITextField()
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = "Фамилия"
-        textField.backgroundColor = Theme.wrapperViewColor
-        textField.layer.cornerRadius = 10
-        textField.paddingLeft(inset: Theme.margin)
-        
-        return textField
-    }()
-    
-    private var birthDateTextField: UITextField = {
-        let textField = UITextField()
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = "Дата рождения"
-        textField.backgroundColor = Theme.wrapperViewColor
-        textField.layer.cornerRadius = 10
-        textField.paddingLeft(inset: Theme.margin)
-        
-        return textField
-    }()
-    
-    private var citizenshipTextField: UITextField = {
-        let textField = UITextField()
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = "Гражданство"
-        textField.backgroundColor = Theme.wrapperViewColor
-        textField.layer.cornerRadius = 10
-        textField.paddingLeft(inset: Theme.margin)
-        
-        return textField
-    }()
-    
-    private var passportNumberTextField: UITextField = {
-        let textField = UITextField()
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = "Номер загранпаспорта"
-        textField.backgroundColor = Theme.wrapperViewColor
-        textField.layer.cornerRadius = 10
-        textField.paddingLeft(inset: Theme.margin)
-        
-        return textField
-    }()
-    
-    private var passportEspDateField: UITextField = {
-        let textField = UITextField()
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = "Срок действия загранпаспорта"
-        textField.backgroundColor = Theme.wrapperViewColor
-        textField.layer.cornerRadius = 10
-        textField.paddingLeft(inset: Theme.margin)
-        
-        return textField
-    }()
-    
-    private var firstTouristStackView: UIStackView = {
-        let view = UIStackView()
+    private var firstTouristView: BookingTouristView = {
+        let view = BookingTouristView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.axis = .vertical
-        view.spacing = 8
-
-        return view
-    }()
-    
-    private var firstTouristView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.layer.cornerRadius = BookingView.viewCornerRadius
-        view.backgroundColor = .white
 
         return view
     }()
@@ -618,18 +513,6 @@ class BookingView: UIView {
         phoneTextField.delegate = self
         phoneTextField.keyboardType = .numberPad
         emailTextField.delegate = self
-
-        firstTouristStackView.addArrangedSubview(nameTextField)
-        firstTouristStackView.addArrangedSubview(surnameTextField)
-        firstTouristStackView.addArrangedSubview(birthDateTextField)
-        firstTouristStackView.addArrangedSubview(citizenshipTextField)
-        firstTouristStackView.addArrangedSubview(passportNumberTextField)
-        firstTouristStackView.addArrangedSubview(passportEspDateField)
-        
-        firstTouristTitleView.addSubview(firstTouristInfoLabel)
-        firstTouristTitleView.addSubview(firstTouristCollapseButton)
-        firstTouristView.addSubview(firstTouristTitleView)
-        firstTouristView.addSubview(firstTouristStackView)
         
         secondTouristTitleView.addSubview(secondTouristInfoLabel)
         secondTouristTitleView.addSubview(secondTouristCollapseButton)
@@ -778,34 +661,7 @@ class BookingView: UIView {
             customerView.heightAnchor.constraint(greaterThanOrEqualToConstant: 232),
 
             // MARK: - First tourist view constraints
-            
-            firstTouristInfoLabel.centerYAnchor.constraint(equalTo: firstTouristTitleView.centerYAnchor),
-            firstTouristInfoLabel.leadingAnchor.constraint(equalTo: firstTouristTitleView.leadingAnchor),
-            
-            firstTouristInfoLabel.heightAnchor.constraint(equalToConstant: 26),
-            
-            firstTouristCollapseButton.heightAnchor.constraint(equalToConstant: 32),
-            firstTouristCollapseButton.widthAnchor.constraint(equalToConstant: 32),
-            firstTouristCollapseButton.centerYAnchor.constraint(equalTo: firstTouristTitleView.centerYAnchor),
-            firstTouristCollapseButton.trailingAnchor.constraint(equalTo: firstTouristTitleView.trailingAnchor),
-            
-            firstTouristTitleView.topAnchor.constraint(equalTo: firstTouristView.topAnchor),
-            firstTouristTitleView.leadingAnchor.constraint(equalTo: firstTouristView.leadingAnchor, constant: Theme.margin),
-            firstTouristTitleView.trailingAnchor.constraint(equalTo: firstTouristView.trailingAnchor, constant: -Theme.margin),
-            firstTouristTitleView.heightAnchor.constraint(equalToConstant: 58),
-            
-            nameTextField.heightAnchor.constraint(equalToConstant: 52),
-            surnameTextField.heightAnchor.constraint(equalToConstant: 52),
-            birthDateTextField.heightAnchor.constraint(equalToConstant: 52),
-            citizenshipTextField.heightAnchor.constraint(equalToConstant: 52),
-            passportNumberTextField.heightAnchor.constraint(equalToConstant: 52),
-            passportEspDateField.heightAnchor.constraint(equalToConstant: 52),
-            
-            firstTouristStackView.topAnchor.constraint(equalTo: firstTouristTitleView.bottomAnchor),
-            firstTouristStackView.leadingAnchor.constraint(equalTo: firstTouristView.leadingAnchor, constant: Theme.margin),
-            firstTouristStackView.trailingAnchor.constraint(equalTo: firstTouristView.trailingAnchor, constant: -Theme.margin),
-            firstTouristStackView.bottomAnchor.constraint(equalTo: firstTouristView.bottomAnchor, constant: -Theme.margin),
-            
+
             firstTouristView.topAnchor.constraint(equalTo: customerView.bottomAnchor, constant: 8),
             firstTouristView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             firstTouristView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
