@@ -16,7 +16,6 @@ class ResultViewController: UIViewController, Coordinating {
         view.image = UIImage(named: "Party Popper")
         view.contentMode = .scaleAspectFill
         
-        
         return view
     }()
     
@@ -51,9 +50,9 @@ class ResultViewController: UIViewController, Coordinating {
         return label
     }()
     
-    private var bottomView: BottomButtonView = {
-        let view = BottomButtonView()
-        view.translatesAutoresizingMaskIntoConstraints = false
+    private var transitionButtonView: TransitionButtonView = {
+        let view = TransitionButtonView()
+        
         return view
     }()
 
@@ -66,10 +65,10 @@ class ResultViewController: UIViewController, Coordinating {
         view.addSubview(imageViewView)
         view.addSubview(titleLabel)
         view.addSubview(descriptionLabel)
-        view.addSubview(bottomView)
+        view.addSubview(transitionButtonView)
         
-        bottomView.buttonTitle = "Супер!"
-        bottomView.delegate = self
+        transitionButtonView.buttonTitle = "Супер!"
+        transitionButtonView.delegate = self
 
         let number = Int.random(in: 0...100000)
         descriptionLabel.text = "Подтверждение заказа №\(number) может занять некоторое время (от 1 часа до суток). Как только мы получим ответ от туроператора, вам на почту придет уведомление."
@@ -98,15 +97,15 @@ class ResultViewController: UIViewController, Coordinating {
             descriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
             descriptionLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
             
-            bottomView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            bottomView.bottomAnchor.constraint(greaterThanOrEqualTo: view.bottomAnchor, constant: -Theme.margin),
-            bottomView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            transitionButtonView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Theme.margin),
+            transitionButtonView.bottomAnchor.constraint(greaterThanOrEqualTo: view.bottomAnchor, constant: -28),
+            transitionButtonView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Theme.margin),
         ])
     }
 
 }
 
-extension ResultViewController: BottomButtonViewDelegate {
+extension ResultViewController: TransitionButtonViewDelegate {
     func didTapButton() {
         coordinator?.eventOccured(with: .home, title: "Отель")
     }

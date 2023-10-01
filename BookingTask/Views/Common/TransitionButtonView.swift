@@ -1,5 +1,5 @@
 //
-//  HotelBottomView.swift
+//  TransitionButtonView.swift
 //  BookingTask
 //
 //  Created by Sergei on 15.09.2023.
@@ -7,12 +7,12 @@
 
 import UIKit
 
-protocol BottomButtonViewDelegate: AnyObject {
+protocol TransitionButtonViewDelegate: AnyObject {
     func didTapButton()
 }
 
-class BottomButtonView: UIView {
-    weak var delegate: BottomButtonViewDelegate?
+class TransitionButtonView: UIView {
+    weak var delegate: TransitionButtonViewDelegate?
     
     public var buttonTitle: String? {
         didSet {
@@ -42,7 +42,6 @@ class BottomButtonView: UIView {
         super.init(frame: frame)
         
         translatesAutoresizingMaskIntoConstraints = false
-        backgroundColor = .systemBackground
         
         addSubview(button)
         
@@ -55,11 +54,12 @@ class BottomButtonView: UIView {
     
     private func addConstraints() {
         NSLayoutConstraint.activate([
-            button.topAnchor.constraint(equalTo: topAnchor, constant: 12),
-            button.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Theme.margin),
-            button.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12),
-            button.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Theme.margin),
-            button.heightAnchor.constraint(equalToConstant: 48),
+            button.topAnchor.constraint(equalTo: topAnchor),
+            button.leadingAnchor.constraint(equalTo: leadingAnchor),
+            button.bottomAnchor.constraint(equalTo: bottomAnchor),
+            button.trailingAnchor.constraint(equalTo: trailingAnchor),
+//            button.heightAnchor.constraint(equalToConstant: 48),
+            heightAnchor.constraint(equalToConstant: 48),
         ])
     }
 }

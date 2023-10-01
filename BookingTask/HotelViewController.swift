@@ -12,7 +12,7 @@ class HotelViewController: UIViewController, Coordinating {
     
     private let topView = HotelTopView()
     private var aboutView = HotelAboutView()
-    private var bottomView = BottomButtonView()
+    private var transitionButtonView = TransitionButtonView()
     
     private let viewModel = HotelViewControllerViewModel()
     
@@ -25,6 +25,13 @@ class HotelViewController: UIViewController, Coordinating {
     private var contentView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private var bottomView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .white
         return view
     }()
     
@@ -44,14 +51,15 @@ class HotelViewController: UIViewController, Coordinating {
         contentView.addSubview(topView)
         contentView.addSubview(aboutView)
         contentView.addSubview(bottomView)
-        bottomView.delegate = self
+        bottomView.addSubview(transitionButtonView)
+        transitionButtonView.delegate = self
         scrollView.addSubview(contentView)
         view.addSubview(scrollView)
-        bottomView.buttonTitle = "К выбору номера"
+        transitionButtonView.buttonTitle = "К выбору номера"
     }
     
     private func addConstraints() {
-        let heightConstraint = contentView.heightAnchor.constraint(equalTo: scrollView.heightAnchor)
+        let heightConstraint = contentView.heightAnchor.constraint(equalToConstant: 985)
             heightConstraint.priority = UILayoutPriority(250)
         
         NSLayoutConstraint.activate([
@@ -61,16 +69,21 @@ class HotelViewController: UIViewController, Coordinating {
             topView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             
 //             about view
-            aboutView.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: Theme.margin),
+            aboutView.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 8),
             aboutView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             aboutView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             aboutView.heightAnchor.constraint(equalToConstant: 428),
             
 //             bottom view
-            bottomView.topAnchor.constraint(equalTo: aboutView.bottomAnchor, constant: Theme.margin),
+            bottomView.topAnchor.constraint(equalTo: aboutView.bottomAnchor, constant: 8),
             bottomView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             bottomView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             bottomView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            bottomView.heightAnchor.constraint(equalToConstant: 88),
+
+            transitionButtonView.topAnchor.constraint(equalTo: bottomView.topAnchor, constant: 12),
+            transitionButtonView.leadingAnchor.constraint(equalTo: bottomView.leadingAnchor, constant: Theme.margin),
+            transitionButtonView.trailingAnchor.constraint(equalTo: bottomView.trailingAnchor, constant: -Theme.margin),
             
             contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
@@ -106,7 +119,7 @@ extension HotelViewController: HotelViewControllerViewModelDelegate {
     }
 }
 
-extension HotelViewController: BottomButtonViewDelegate {
+extension HotelViewController: TransitionButtonViewDelegate {
     func didTapButton() {
         coordinator?.eventOccured(with: .room, title: viewModel.hotelData?.name)
     }

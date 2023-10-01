@@ -13,12 +13,17 @@ class BookingTouristView: UIView {
     
     private var isCollapsed = false
     
+    public var title: String? {
+        didSet {
+            titleLabel.text = title
+        }
+    }
+    
     lazy private var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = Theme.titleFont
         label.textColor = .label
-        label.text = "Первый турист"
         
         return label
     }()
@@ -33,6 +38,7 @@ class BookingTouristView: UIView {
         button.addTarget(self, action: #selector(didTapCollapse), for: .touchUpInside)
         button.heightAnchor.constraint(equalToConstant: 32).isActive = true
         button.widthAnchor.constraint(equalToConstant: 32).isActive = true
+        
         return button
     }()
     
@@ -137,13 +143,9 @@ class BookingTouristView: UIView {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.axis = .vertical
         view.spacing = Theme.margin
-        
-        view.addArrangedSubview(titleView)
-        view.addArrangedSubview(textFieldsStackView)
 
         return view
     }()
-    
 
     // MARK: - Init
     
@@ -156,6 +158,10 @@ class BookingTouristView: UIView {
         
         titleView.addSubview(titleLabel)
         titleView.addSubview(collapseButton)
+        
+        wrapperStackView.addArrangedSubview(titleView)
+        wrapperStackView.addArrangedSubview(textFieldsStackView)
+        wrapperStackView.addArrangedSubview(UIView(frame: .zero))
 
         addSubview(wrapperStackView)
 
@@ -167,7 +173,6 @@ class BookingTouristView: UIView {
     }
     
     private func addConstraints() {
-        
         NSLayoutConstraint.activate([
             titleLabel.centerYAnchor.constraint(equalTo: titleView.centerYAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: titleView.leadingAnchor),
@@ -175,10 +180,10 @@ class BookingTouristView: UIView {
             collapseButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
             collapseButton.trailingAnchor.constraint(equalTo: titleView.trailingAnchor),
 
-            wrapperStackView.topAnchor.constraint(equalTo: topAnchor, constant: Theme.margin),
+            wrapperStackView.topAnchor.constraint(greaterThanOrEqualTo: topAnchor, constant: Theme.margin),
             wrapperStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Theme.margin),
             wrapperStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Theme.margin),
-            wrapperStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Theme.margin),
+            wrapperStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
     }
 

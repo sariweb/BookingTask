@@ -33,8 +33,9 @@ class BookingViewController: UIViewController, Coordinating {
     }
     
     private func addConstraints() {
-        let heightConstraint = bookingView.heightAnchor.constraint(equalToConstant: 1550)
-            heightConstraint.priority = UILayoutPriority(250)
+        let touristViewHeight: CGFloat = 430
+        let touristsHeight: CGFloat = CGFloat(bookingView.touristViews.count) * touristViewHeight
+        let heightConstraint = bookingView.heightAnchor.constraint(equalToConstant: 1050 + touristsHeight)
         
         NSLayoutConstraint.activate([
             bookingView.topAnchor.constraint(equalTo: scrollView.topAnchor),
@@ -44,10 +45,10 @@ class BookingViewController: UIViewController, Coordinating {
             bookingView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
             heightConstraint,
             
-            scrollView.topAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.topAnchor),
+            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            scrollView.bottomAnchor.constraint(greaterThanOrEqualTo: view.bottomAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
     }
 }
@@ -55,5 +56,18 @@ class BookingViewController: UIViewController, Coordinating {
 extension BookingViewController: BookingViewDelegate {
     func didTapButton() {
         coordinator?.eventOccured(with: .result, title: "Заказ оплачен")
+    }
+    
+    func updateUI() {
+        print("update")
+        let touristViewHeight: CGFloat = 430
+        let touristsHeight: CGFloat = CGFloat(bookingView.touristViews.count) * touristViewHeight
+        let heightConstraint = bookingView.heightAnchor.constraint(equalToConstant: 1050 + touristsHeight)
+
+        NSLayoutConstraint.activate([
+            heightConstraint,
+        ])
+
+        bookingView.setNeedsUpdateConstraints()
     }
 }

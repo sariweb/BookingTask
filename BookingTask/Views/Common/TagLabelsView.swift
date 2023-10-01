@@ -29,11 +29,11 @@ class TagLabelsView: UIView {
     }
     
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        commonInit()
+        fatalError("init(coder:) has not been implemented")
     }
     
     private func commonInit() -> Void {
+        translatesAutoresizingMaskIntoConstraints = false
         clipsToBounds = true
     }
 
@@ -119,5 +119,4 @@ class TagLabelsView: UIView {
         super.layoutSubviews()
         displayTagLabels()
     }
-    
 }

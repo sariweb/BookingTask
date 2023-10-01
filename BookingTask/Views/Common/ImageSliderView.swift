@@ -143,6 +143,8 @@ class ImageSliderView: UIView {
             
             pageControl.centerXAnchor.constraint(equalTo: centerXAnchor),
             pageControl.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
+            
+            heightAnchor.constraint(equalToConstant: 257),
         ])
     }
 }

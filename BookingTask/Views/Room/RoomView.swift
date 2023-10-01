@@ -19,11 +19,7 @@ class RoomView: UIView {
     private let tableView: UITableView = {
         let view = UITableView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.register(RoomTableViewCell.self,
-                      forCellReuseIdentifier: RoomTableViewCell.identifier)
-        
-        view.separatorStyle = .none
-        
+
         return view
     }()
 
@@ -50,7 +46,13 @@ class RoomView: UIView {
     private func setupTableView() {
         tableView.dataSource = viewModel
         tableView.delegate = viewModel
+        tableView.register(RoomTableViewCell.self,
+                      forCellReuseIdentifier: RoomTableViewCell.identifier)
+        
+        tableView.separatorStyle = .none
         tableView.tableFooterView = UIView()
+        tableView.estimatedRowHeight = UITableView.automaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
     }
     
     private func addConstraints() {
