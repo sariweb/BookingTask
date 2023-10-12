@@ -21,10 +21,21 @@ class BookingView: UIView {
     
     private var paymentSum = 0
         
-    private var contentView: UIView = {
-        let view = UIView()
+    private var conteinerView: UIStackView = {
+        let view = UIStackView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.axis = .vertical
+        view.spacing = 8
+        
+        return view
+    }()
+    
+    private var contentView: UIStackView = {
+        let view = UIStackView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = Theme.wrapperViewColor
+        view.axis = .vertical
+        view.spacing = 8
         
         return view
     }()
@@ -39,7 +50,7 @@ class BookingView: UIView {
 
     // MARK: - Booking view
     
-    private var bookingView: BookingInfoView = {
+    private var bookingInfoView: BookingInfoView = {
         let view = BookingInfoView()
         
         return view
@@ -69,9 +80,13 @@ class BookingView: UIView {
 
     lazy private var touristAdditionView: BookingTouristAdditionView = {
         let view = BookingTouristAdditionView()
-        view.layer.cornerRadius = BookingView.viewCornerRadius
-        view.backgroundColor = .white
         view.title = "Добавить туриста"
+
+        return view
+    }()
+    
+    lazy private var touristsDataView: BookingTouristsDataView = {
+        let view = BookingTouristsDataView()
 
         return view
     }()
@@ -113,20 +128,25 @@ class BookingView: UIView {
         
         addTouristView()
 
-        contentView.addSubview(hotelInfoView)
-        contentView.addSubview(bookingView)
-        contentView.addSubview(customerView)
-        contentView.addSubview(touristsStackView)
-        contentView.addSubview(touristAdditionView)
-        contentView.addSubview(priceView)
-        contentView.addSubview(bottomView)
+        contentView.addArrangedSubview(UIView(frame: .zero))
+        contentView.addArrangedSubview(hotelInfoView)
+        contentView.addArrangedSubview(bookingInfoView)
+        contentView.addArrangedSubview(customerView)
+        contentView.addArrangedSubview(touristsDataView)
+        contentView.addArrangedSubview(touristAdditionView)
+        contentView.addArrangedSubview(priceView)
+        contentView.addArrangedSubview(UIView(frame: .zero))
+        
         bottomView.addSubview(transitionButtonView)
         
         transitionButtonView.delegate = self
         touristAdditionView.delegate = self
         
-        addSubview(contentView)
+        conteinerView.addArrangedSubview(contentView)
+        conteinerView.addArrangedSubview(bottomView)
         
+        addSubview(conteinerView)
+
         viewModel.delegate = self
         viewModel.fetchBookingData()
 
@@ -170,66 +190,26 @@ class BookingView: UIView {
     
     private func addConstraints() {
         NSLayoutConstraint.activate([
-            // MARK: - Hotel info view constraints
+            // MARK: - Contaner view constraints
             
-            hotelInfoView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            hotelInfoView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            hotelInfoView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            
-            // MARK: - Booking view constraints
-            
-            bookingView.topAnchor.constraint(equalTo: hotelInfoView.bottomAnchor, constant: 8),
-            bookingView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            bookingView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            
-            // MARK: - Customer view constraints
-            
-            customerView.topAnchor.constraint(equalTo: bookingView.bottomAnchor, constant: 8),
-            customerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            customerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-
-            // MARK: - Tourist stack view constraints
-
-            touristsStackView.topAnchor.constraint(equalTo: customerView.bottomAnchor, constant: 8),
-            touristsStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            touristsStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            
-            // MARK: - Add tourist view constraints
-
-            touristAdditionView.topAnchor.constraint(equalTo: touristsStackView.bottomAnchor, constant: 8),
-            touristAdditionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            touristAdditionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            
-            // MARK: - Price view constraints
-            
-            priceView.topAnchor.constraint(equalTo: touristAdditionView.bottomAnchor, constant: 8),
-            priceView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            priceView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            conteinerView.topAnchor.constraint(equalTo: topAnchor),
+            conteinerView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            conteinerView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            conteinerView.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor),
             
             // MARK: - Bottom view constraints
             
-            bottomView.topAnchor.constraint(equalTo: priceView.bottomAnchor, constant: 8),
-            bottomView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            bottomView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            bottomView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             bottomView.heightAnchor.constraint(equalToConstant: 88),
-            
+
             transitionButtonView.topAnchor.constraint(equalTo: bottomView.topAnchor, constant: 12),
             transitionButtonView.leadingAnchor.constraint(equalTo: bottomView.leadingAnchor, constant: Theme.margin),
             transitionButtonView.trailingAnchor.constraint(equalTo: bottomView.trailingAnchor, constant: -Theme.margin),
-
-            // MARK: - Content view constraints
-            
-            contentView.topAnchor.constraint(equalTo: topAnchor),
-            contentView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            contentView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            contentView.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
     }
     
     override var intrinsicContentSize: CGSize {
         let targetSize = CGSize(width: bounds.width, height: UIView.layoutFittingCompressedSize.height)
-        return contentView.systemLayoutSizeFitting(targetSize)
+        return conteinerView.systemLayoutSizeFitting(targetSize)
     }
 }
 
@@ -241,13 +221,13 @@ extension BookingView: BookingViewViewModelDelegate {
         hotelInfoView.title = bookingData.hotelName
         hotelInfoView.address =  bookingData.hotelAdress
         
-        bookingView.departure = bookingData.departure
-        bookingView.arrival = bookingData.arrivalCountry
-        bookingView.dates = "\(bookingData.tourDateStart) – \(bookingData.tourDateStop)"
-        bookingView.nightsNumber = bookingData.numberOfNights
-        bookingView.hotelName = bookingData.hotelName
-        bookingView.room = bookingData.room
-        bookingView.nutrition = bookingData.nutrition
+        bookingInfoView.departure = bookingData.departure
+        bookingInfoView.arrival = bookingData.arrivalCountry
+        bookingInfoView.dates = "\(bookingData.tourDateStart) – \(bookingData.tourDateStop)"
+        bookingInfoView.nightsNumber = bookingData.numberOfNights
+        bookingInfoView.hotelName = bookingData.hotelName
+        bookingInfoView.room = bookingData.room
+        bookingInfoView.nutrition = bookingData.nutrition
         
         priceView.tourPrice = bookingData.tourPrice
         priceView.fuelCharge = bookingData.fuelCharge
@@ -263,10 +243,8 @@ extension BookingView: TransitionButtonViewDelegate {
     func didTapButton() {
         if customerView.inputPhoneText.count != 10 {
             print("Incorrect Phone: \(customerView.inputPhoneText)")
-//            phoneTextField.becomeFirstResponder()
         } else if !customerView.inputEmailText.isEmail {
             print("Incorrect Email: \(customerView.inputEmailText)")
-//            emailTextField.becomeFirstResponder()
         } else {
             delegate?.didTapButton()
             

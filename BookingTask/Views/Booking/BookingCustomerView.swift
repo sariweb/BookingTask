@@ -106,7 +106,7 @@ final class BookingCustomerView: UIView {
             customerDescLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Theme.margin),
             customerDescLabel.heightAnchor.constraint(equalToConstant: 34),
             
-            heightAnchor.constraint(greaterThanOrEqualToConstant: 232),
+            heightAnchor.constraint(equalToConstant: 232),
         ])
     }
     

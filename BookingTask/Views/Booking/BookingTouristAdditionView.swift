@@ -30,7 +30,7 @@ class BookingTouristAdditionView: UIView {
         return label
     }()
     
-    lazy private var collapseButton: UIButton = {
+    lazy private var expandButton: UIButton = {
         let button = UIButton()
         let configuration = UIImage.SymbolConfiguration(font: Theme.descriptionFont)
         let image = UIImage(systemName: "plus", withConfiguration: configuration)
@@ -70,11 +70,11 @@ class BookingTouristAdditionView: UIView {
         super.init(frame: .zero)
         
         translatesAutoresizingMaskIntoConstraints = false
-        layer.cornerRadius = 8
+        layer.cornerRadius = 12
         backgroundColor = .white
         
         titleView.addSubview(titleLabel)
-        titleView.addSubview(collapseButton)
+        titleView.addSubview(expandButton)
 
         wrapperStackView.addArrangedSubview(titleView)
         
@@ -92,8 +92,8 @@ class BookingTouristAdditionView: UIView {
             titleLabel.centerYAnchor.constraint(equalTo: titleView.centerYAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: titleView.leadingAnchor),
             
-            collapseButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
-            collapseButton.trailingAnchor.constraint(equalTo: titleView.trailingAnchor),
+            expandButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
+            expandButton.trailingAnchor.constraint(equalTo: titleView.trailingAnchor),
 
             wrapperStackView.topAnchor.constraint(equalTo: topAnchor, constant: Theme.margin),
             wrapperStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Theme.margin),

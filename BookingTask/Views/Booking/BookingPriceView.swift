@@ -164,7 +164,7 @@ final class BookingPriceView: UIView {
             paymentDataLabel.topAnchor.constraint(equalTo: paymentLabel.topAnchor),
             paymentDataLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Theme.margin),
 
-            heightAnchor.constraint(greaterThanOrEqualToConstant: 156),
+            heightAnchor.constraint(equalToConstant: 156),
         ])
     }
 }

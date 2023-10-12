@@ -272,7 +272,7 @@ final class BookingInfoView: UIView {
             nutritionDataLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 156),
             nutritionDataLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Theme.margin),
             
-            heightAnchor.constraint(greaterThanOrEqualToConstant: 304),
+            heightAnchor.constraint(equalToConstant: 304),
         ])
     }
 }

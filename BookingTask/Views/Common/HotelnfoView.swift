@@ -101,7 +101,6 @@ final class HotelInfoView: UIView {
     }
     
     private func addConstraints() {
-        
         NSLayoutConstraint.activate([
             // MARK: - Hotel view constraints
             starsView.topAnchor.constraint(equalTo: topAnchor, constant: Theme.margin),
@@ -117,7 +116,7 @@ final class HotelInfoView: UIView {
             infoLabelStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Theme.margin),
             infoLabelStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Theme.margin),
             
-            heightAnchor.constraint(greaterThanOrEqualToConstant: 152),
+            heightAnchor.constraint(equalToConstant: 152),
         ])
     }
 }
