@@ -64,26 +64,7 @@ class BookingView: UIView {
         return view
     }()
     
-    // MARK: - Tourists stack view
-    
-    private var touristsStackView: UIStackView = {
-        let view = UIStackView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = Theme.wrapperViewColor
-        view.axis = .vertical
-        view.spacing = 8
-
-        return view
-    }()
-    
-    // MARK: - Add Tourist view
-
-    lazy private var touristAdditionView: BookingTouristAdditionView = {
-        let view = BookingTouristAdditionView()
-        view.title = "Добавить туриста"
-
-        return view
-    }()
+    // MARK: - Tourists data view
     
     lazy private var touristsDataView: BookingTouristsDataView = {
         let view = BookingTouristsDataView()
@@ -117,7 +98,7 @@ class BookingView: UIView {
         return view
     }()
     
-    private(set) var touristViews: [BookingTouristView] = []
+    private(set) var touristsHeight: CGFloat = Theme.touristCellExpandedHeight
 
     // MARK: - Init
     
@@ -125,22 +106,19 @@ class BookingView: UIView {
         super.init(frame: .zero)
         
         translatesAutoresizingMaskIntoConstraints = false
-        
-        addTouristView()
 
         contentView.addArrangedSubview(UIView(frame: .zero))
         contentView.addArrangedSubview(hotelInfoView)
         contentView.addArrangedSubview(bookingInfoView)
         contentView.addArrangedSubview(customerView)
         contentView.addArrangedSubview(touristsDataView)
-        contentView.addArrangedSubview(touristAdditionView)
         contentView.addArrangedSubview(priceView)
         contentView.addArrangedSubview(UIView(frame: .zero))
         
         bottomView.addSubview(transitionButtonView)
         
         transitionButtonView.delegate = self
-        touristAdditionView.delegate = self
+        touristsDataView.delegate = self
         
         conteinerView.addArrangedSubview(contentView)
         conteinerView.addArrangedSubview(bottomView)
@@ -157,37 +135,6 @@ class BookingView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc private func didTapAdd() {
-        print("didTapAdd")
-        addTouristView()
-    }
-    
-    private func addTouristView() {
-        touristViews.append(BookingTouristView())
-        
-        for i in 0..<touristViews.count {
-            let view = touristViews[i]
-            view.title = ordinalTitle(i)
-            
-            if !touristsStackView.arrangedSubviews.contains(where: { v in
-                v == view
-            }) {
-                touristsStackView.addArrangedSubview(view)
-            }
-        }
-        
-        invalidateIntrinsicContentSize()
-    }
-    
-    private func ordinalTitle(_ number: Int) -> String {
-        let ordinals = ["Первый","Второй","Третий","Четвертый","Пятый","Шестой","Седьмой","Восьмой","Девятый","Десятый"]
-        if number < ordinals.count {
-            return "\(ordinals[number]) турист"
-        } else {
-            return "Еще турист"
-        }
-    }
-    
     private func addConstraints() {
         NSLayoutConstraint.activate([
             // MARK: - Contaner view constraints
@@ -195,7 +142,7 @@ class BookingView: UIView {
             conteinerView.topAnchor.constraint(equalTo: topAnchor),
             conteinerView.leadingAnchor.constraint(equalTo: leadingAnchor),
             conteinerView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            conteinerView.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor),
+            conteinerView.bottomAnchor.constraint(greaterThanOrEqualTo: bottomAnchor),
             
             // MARK: - Bottom view constraints
             
@@ -205,11 +152,6 @@ class BookingView: UIView {
             transitionButtonView.leadingAnchor.constraint(equalTo: bottomView.leadingAnchor, constant: Theme.margin),
             transitionButtonView.trailingAnchor.constraint(equalTo: bottomView.trailingAnchor, constant: -Theme.margin),
         ])
-    }
-    
-    override var intrinsicContentSize: CGSize {
-        let targetSize = CGSize(width: bounds.width, height: UIView.layoutFittingCompressedSize.height)
-        return conteinerView.systemLayoutSizeFitting(targetSize)
     }
 }
 
@@ -254,9 +196,9 @@ extension BookingView: TransitionButtonViewDelegate {
     }
 }
 
-extension BookingView: BookingTouristAdditionViewDelegate {
-    func didTapAddTourist() {
-        addTouristView()
+extension BookingView: BookingTouristsDataViewDelegate {
+    func didChangeTouristsHeight(_ height: CGFloat) {
+        touristsHeight = height
         delegate?.updateUI()
     }
 }

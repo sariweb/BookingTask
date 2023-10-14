@@ -9,6 +9,9 @@ import UIKit
 
 struct Theme {
     static let margin: CGFloat = 16
+    static let touristCellExpandedHeight: CGFloat = 430
+    static let touristCellHeight: CGFloat = 58
+    static let textFieldHeight: CGFloat = 52
     
     static let addressFont: UIFont = .systemFont(ofSize: 14, weight: .medium).withFamily("SF Pro Display")
     static let smallDescriptionFont: UIFont = .systemFont(ofSize: 14).withFamily("SF Pro Display")

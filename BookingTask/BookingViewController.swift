@@ -32,18 +32,17 @@ class BookingViewController: UIViewController, Coordinating {
         addConstraints()
     }
     
+    var bookingHeightConstraint: NSLayoutConstraint?
+
     private func addConstraints() {
-        let touristViewHeight: CGFloat = 430
-        let touristsHeight: CGFloat = CGFloat(bookingView.touristViews.count) * touristViewHeight
-        let heightConstraint = bookingView.heightAnchor.constraint(equalToConstant: 1050 + touristsHeight)
-        
+        bookingHeightConstraint = bookingView.heightAnchor.constraint(equalToConstant: 1050 + bookingView.touristsHeight)
         NSLayoutConstraint.activate([
             bookingView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             bookingView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
             bookingView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             bookingView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             bookingView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-            heightConstraint,
+            bookingHeightConstraint!,
             
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -59,15 +58,20 @@ extension BookingViewController: BookingViewDelegate {
     }
     
     func updateUI() {
-        print("update")
-        let touristViewHeight: CGFloat = 430
-        let touristsHeight: CGFloat = CGFloat(bookingView.touristViews.count) * touristViewHeight
-        let heightConstraint = bookingView.heightAnchor.constraint(equalToConstant: 1050 + touristsHeight)
-
-        NSLayoutConstraint.activate([
-            heightConstraint,
-        ])
-
-        bookingView.setNeedsUpdateConstraints()
+        if bookingHeightConstraint != nil {
+            NSLayoutConstraint.deactivate([
+                bookingHeightConstraint!,
+            ])
+            
+            bookingHeightConstraint = bookingView.heightAnchor.constraint(equalToConstant: 1050 + bookingView.touristsHeight)
+            
+            NSLayoutConstraint.activate([
+                bookingHeightConstraint!,
+            ])
+            
+        }
+        
+        view.setNeedsLayout()
+        view.layoutIfNeeded()
     }
 }

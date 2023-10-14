@@ -1,23 +1,23 @@
 //
-//  BookingTouristView.swift
+//  BookingTouristsDataViewExpandCell.swift
 //  BookingTask
 //
-//  Created by Sergei on 29.09.2023.
+//  Created by Sergei on 04.10.2023.
 //
 
 import UIKit
 
-class BookingTouristView: UIView {
+protocol BookingTouristsDataViewExpandCellDelegate: AnyObject {
+    func didTapButton(isExpanded: Bool, cellNumber: Int)
+}
 
-//    private let viewModel = BookingTouristViewViewModel()
+final class BookingTouristsDataViewExpandCell: UITableViewCell {
+    static let identifier = "BookingTouristsDataViewExpandCell"
     
-    private var isExpanded = false
+    weak var delegate: BookingTouristsDataViewExpandCellDelegate?
     
-    public var title: String? {
-        didSet {
-            titleLabel.text = title
-        }
-    }
+    private var isExpanded = true
+    private var cellNumber = 0
     
     lazy private var titleLabel: UILabel = {
         let label = UILabel()
@@ -49,7 +49,7 @@ class BookingTouristView: UIView {
         
         return view
     }()
-
+    
     lazy private var nameTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -57,7 +57,7 @@ class BookingTouristView: UIView {
         textField.backgroundColor = Theme.wrapperViewColor
         textField.layer.cornerRadius = 10
         textField.paddingLeft(inset: Theme.margin)
-        textField.heightAnchor.constraint(equalToConstant: 52).isActive = true
+        textField.heightAnchor.constraint(equalToConstant: Theme.textFieldHeight).isActive = true
         
         return textField
     }()
@@ -69,7 +69,7 @@ class BookingTouristView: UIView {
         textField.backgroundColor = Theme.wrapperViewColor
         textField.layer.cornerRadius = 10
         textField.paddingLeft(inset: Theme.margin)
-        textField.heightAnchor.constraint(equalToConstant: 52).isActive = true
+        textField.heightAnchor.constraint(equalToConstant: Theme.textFieldHeight).isActive = true
         
         return textField
     }()
@@ -81,7 +81,7 @@ class BookingTouristView: UIView {
         textField.backgroundColor = Theme.wrapperViewColor
         textField.layer.cornerRadius = 10
         textField.paddingLeft(inset: Theme.margin)
-        textField.heightAnchor.constraint(equalToConstant: 52).isActive = true
+        textField.heightAnchor.constraint(equalToConstant: Theme.textFieldHeight).isActive = true
         
         return textField
     }()
@@ -93,7 +93,7 @@ class BookingTouristView: UIView {
         textField.backgroundColor = Theme.wrapperViewColor
         textField.layer.cornerRadius = 10
         textField.paddingLeft(inset: Theme.margin)
-        textField.heightAnchor.constraint(equalToConstant: 52).isActive = true
+        textField.heightAnchor.constraint(equalToConstant: Theme.textFieldHeight).isActive = true
         
         return textField
     }()
@@ -105,7 +105,7 @@ class BookingTouristView: UIView {
         textField.backgroundColor = Theme.wrapperViewColor
         textField.layer.cornerRadius = 10
         textField.paddingLeft(inset: Theme.margin)
-        textField.heightAnchor.constraint(equalToConstant: 52).isActive = true
+        textField.heightAnchor.constraint(equalToConstant: Theme.textFieldHeight).isActive = true
         
         return textField
     }()
@@ -117,7 +117,7 @@ class BookingTouristView: UIView {
         textField.backgroundColor = Theme.wrapperViewColor
         textField.layer.cornerRadius = 10
         textField.paddingLeft(inset: Theme.margin)
-        textField.heightAnchor.constraint(equalToConstant: 52).isActive = true
+        textField.heightAnchor.constraint(equalToConstant: Theme.textFieldHeight).isActive = true
         
         return textField
     }()
@@ -138,40 +138,49 @@ class BookingTouristView: UIView {
         return view
     }()
     
-    lazy private var wrapperStackView: UIStackView = {
-        let view = UIStackView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.axis = .vertical
-        view.spacing = Theme.margin
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: BookingTouristsDataViewExpandCell.identifier)
 
-        return view
-    }()
-
-    private(set) var intrinsicHeight: CGFloat = 58
-    
-    // MARK: - Init
-    
-    override init(frame: CGRect) {
-        super.init(frame: .zero)
-        
-        translatesAutoresizingMaskIntoConstraints = false
-        layer.cornerRadius = 8
-        backgroundColor = .white
+        contentView.layer.cornerRadius = 12
+        contentView.backgroundColor = .white
         
         titleView.addSubview(titleLabel)
         titleView.addSubview(expandButton)
+
+        contentView.addSubview(titleView)
+        contentView.addSubview(textFieldsStackView)
         
-        wrapperStackView.addArrangedSubview(titleView)
-        wrapperStackView.addArrangedSubview(textFieldsStackView)
-        wrapperStackView.addArrangedSubview(UIView(frame: .zero))
-
-        addSubview(wrapperStackView)
-
         addConstraints()
+     }
+
+     required init?(coder aDecoder: NSCoder) {
+       super.init(coder: aDecoder)
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    @objc private func didTapExpand() {
+        isExpanded = !isExpanded
+        
+        setExpanded()
+        
+        delegate?.didTapButton(isExpanded: isExpanded, cellNumber: cellNumber)
+    }
+    
+    private func setExpanded() {
+        let systemName = isExpanded ? "chevron.up" : "chevron.down"
+        
+        self.expandButton.setImage(UIImage(systemName: systemName), for: .normal)
+        UIView.animate(withDuration: 0.5) {
+            self.textFieldsStackView.isHidden = !self.isExpanded
+        }
+    }
+    
+    private func ordinalTitle(_ number: Int) -> String {
+        let ordinals = ["Первый","Второй","Третий","Четвертый","Пятый","Шестой","Седьмой","Восьмой","Девятый","Десятый"]
+        if number < ordinals.count {
+            return "\(ordinals[number]) турист"
+        } else {
+            return "\(number)-й турист"
+        }
     }
     
     private func addConstraints() {
@@ -182,32 +191,23 @@ class BookingTouristView: UIView {
             expandButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
             expandButton.trailingAnchor.constraint(equalTo: titleView.trailingAnchor),
 
-            wrapperStackView.topAnchor.constraint(greaterThanOrEqualTo: topAnchor, constant: Theme.margin),
-            wrapperStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Theme.margin),
-            wrapperStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Theme.margin),
-            wrapperStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            titleView.topAnchor.constraint(greaterThanOrEqualTo: contentView.topAnchor, constant: Theme.margin),
+            titleView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Theme.margin),
+            titleView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Theme.margin),
+            titleView.bottomAnchor.constraint(greaterThanOrEqualTo: textFieldsStackView.topAnchor, constant: -Theme.margin),
             
-            heightAnchor.constraint(greaterThanOrEqualToConstant: 58)
+            textFieldsStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Theme.margin),
+            textFieldsStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Theme.margin),
+            textFieldsStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Theme.margin),
         ])
     }
-
-    @objc private func didTapExpand() {
-        isExpanded = !isExpanded
-        let systemName = isExpanded ?  "chevron.down" : "chevron.up"
-        
-        intrinsicHeight = isExpanded ? 58 : (58 + 60 * 6)
-        invalidateIntrinsicContentSize()
-        
-        UIView.animate(withDuration: 0.5) {
-            self.expandButton.setImage(UIImage(systemName: systemName), for: .normal)
-            self.textFieldsStackView.isHidden = self.isExpanded
-        }
-    }
     
-    override var intrinsicContentSize: CGSize {
-        var sz = super.intrinsicContentSize
-        sz.height = intrinsicHeight
-        
-        return sz
+    // MARK: Configure cell
+    
+    public func configure(number: Int, isExpanded: Bool) {
+        titleLabel.text = "\(ordinalTitle(number))"
+        self.isExpanded = isExpanded
+        cellNumber = number
+        setExpanded()
     }
 }

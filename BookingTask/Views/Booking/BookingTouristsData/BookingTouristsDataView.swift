@@ -7,17 +7,12 @@
 
 import UIKit
 
-final class BookingTouristsDataViewViewModel {
-    let title: String
-    var isExpanded: Bool = true
-    
-    init(title: String, isExpanded: Bool = true) {
-        self.title = title
-        self.isExpanded = isExpanded
-    }
+protocol BookingTouristsDataViewDelegate: AnyObject {
+    func didChangeTouristsHeight(_ height: CGFloat)
 }
 
 final class BookingTouristsDataView: UIView {
+    weak var delegate: BookingTouristsDataViewDelegate?
     
     private var viewModels: [BookingTouristsDataViewViewModel] = []
     
@@ -28,7 +23,7 @@ final class BookingTouristsDataView: UIView {
         return view
     }()
 
-    private var cellHeight: CGFloat = 430
+    private var cellHeight: CGFloat = Theme.touristCellExpandedHeight
     
     // MARK: - Init
     
@@ -41,8 +36,7 @@ final class BookingTouristsDataView: UIView {
         
         // set up models
         viewModels = [
-            BookingTouristsDataViewViewModel(title: "Tourist 1"),
-            BookingTouristsDataViewViewModel(title: "Tourist 2"),
+            BookingTouristsDataViewViewModel(),
         ]
         
         addSubview(tableView)
@@ -60,8 +54,9 @@ final class BookingTouristsDataView: UIView {
         tableView.delegate = self
         tableView.register(BookingTouristsDataViewExpandCell.self,
                            forCellReuseIdentifier: BookingTouristsDataViewExpandCell.identifier)
-        tableView.tableFooterView = UIView()
-//        tableView.separatorStyle = .none
+        tableView.register(BookingTouristsDataViewTableFooter.self,
+                           forHeaderFooterViewReuseIdentifier: BookingTouristsDataViewTableFooter.identifier)
+
         tableView.alwaysBounceVertical = false
         tableView.estimatedRowHeight = UITableView.automaticDimension
         tableView.rowHeight = UITableView.automaticDimension
@@ -72,10 +67,22 @@ final class BookingTouristsDataView: UIView {
             tableView.topAnchor.constraint(equalTo: topAnchor),
             tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            tableView.bottomAnchor.constraint(greaterThanOrEqualTo: bottomAnchor),
 
-            heightAnchor.constraint(equalToConstant: 430),
+            heightAnchor.constraint(greaterThanOrEqualToConstant: Theme.touristCellHeight),
         ])
+    }
+    
+    private func heightForViewModel(_ viewModel: BookingTouristsDataViewViewModel) -> CGFloat {
+        return viewModel.isExpanded ? Theme.touristCellExpandedHeight : Theme.touristCellHeight
+    }
+    
+    private func heightForTable() -> CGFloat {
+        let initialHeight: CGFloat = 0
+        let tableHeight: CGFloat = viewModels.reduce(initialHeight) { partialResult, viewModel in
+            partialResult + heightForViewModel(viewModel)
+        }
+        return tableHeight
     }
 }
 
@@ -98,8 +105,42 @@ extension BookingTouristsDataView: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let viewModel = viewModels[indexPath.row]
-        let cellHeight: CGFloat = viewModel.isExpanded ? 430 : 64
-        return cellHeight
+        
+        return heightForViewModel(viewModel)
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        guard let footer = tableView.dequeueReusableHeaderFooterView(withIdentifier: BookingTouristsDataViewTableFooter.identifier) as? BookingTouristsDataViewTableFooter else {
+            return UITableViewHeaderFooterView()
+        }
+        footer.delegate = self
+        
+        return footer
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return Theme.touristCellHeight
+    }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        if indexPath.row != 0 {
+            return UITableViewCell.EditingStyle.delete
+        }
+        
+        return .none
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        if indexPath.row != 0 {
+            tableView.beginUpdates()
+            
+            viewModels.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            
+            tableView.endUpdates()
+        }
+        tableView.reloadData()
     }
 }
 
@@ -107,5 +148,16 @@ extension BookingTouristsDataView: BookingTouristsDataViewExpandCellDelegate {
     func didTapButton(isExpanded: Bool, cellNumber: Int) {
         viewModels[cellNumber].isExpanded = !viewModels[cellNumber].isExpanded
         tableView.reloadData()
+        
+        delegate?.didChangeTouristsHeight(heightForTable())
+    }
+}
+
+extension BookingTouristsDataView: BookingTouristsDataViewTableFooterDelegate {
+    func didTapAddTourist() {
+        viewModels.append(BookingTouristsDataViewViewModel())
+        tableView.reloadData()
+        
+        delegate?.didChangeTouristsHeight(heightForTable())
     }
 }
